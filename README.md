@@ -4,4 +4,4 @@ The project definition and tasks were adapted from an old "Introduction to Softw
  It is important to note that most of the project files are implemented as header files,
  which was done to align with the assignment's requirements, mainly for the sake of convenience.
 
-*Note For Self* - Run more tests, check for memory leaks.
+*Note For Self* - Run more tests.
