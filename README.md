@@ -1,7 +1,6 @@
 # Matrix Implementation
 This mini-project was undertaken as a self-practice exercise.
 The project definition and tasks were adapted from an old "Introduction to Software Systems" course in the Technion.
-
 In this exercise, I implemented an interface for working with matrices. 
 The stages included:
 
@@ -12,6 +11,7 @@ The stages included:
 3.Development of SqMat for operations on square matrices, derived from Mat.
 
 4.implementing sort algo, Sorting matrix rows in ascending order based on the infinity norm.
+
 5.Integration of complex numbers into matrix operations, including sorting by norm.
 
 **Key takeaways from this project include:**
