@@ -66,38 +66,45 @@ Mat<T> Mat<T>::  operator*(const T& rhs) const {
 	return  mul;
 }
 
-// matrix mul used chat GPT for corrections - check this!!
+// matrix mul
 template <class T>
 Mat<T> Mat<T>::operator*(const Mat<T>& rhs) const
 {
+	// Check if the width of the current matrix is equal to the height of the right-hand side matrix
 	if (this->width() != rhs.height())
 	{
 		ExceptionWrongDimensions exc;
 		throw exc;
 	}
-	Vec<Vec<T> > new_this = *this;
-	unsigned int this_height = height();
-	Vec<Vec<T> > result;
-	//mat_init(result, this_height, rhs.width());
-	unsigned int i = 0;
-	unsigned int j = 0;
-	unsigned int tmp = 0;
-	for (i = 0; i < this_height; i++)
+	// Create a copy of the current matrix
+	//Vec<Vec<T>> new_this = *this;
+	unsigned int this_height = this->height();
+	Vec<Vec<T>> result;
+
+	// Iterate over rows of the current matrix
+	for (unsigned int i = 0; i < this_height; i++)
 	{
 		Vec<T> tmp_vec;
-		for (j = 0; j < rhs.width(); j++)
+
+		// Iterate over columns of the right-hand side matrix
+		for (unsigned int j = 0; j < rhs.width(); j++)
 		{
 			T tmp_result = 0;
-			for (tmp = 0; tmp < rhs.height(); tmp++)
+			// Perform dot product computation for the current elements
+			for (unsigned int tmp = 0; tmp < rhs.height(); tmp++)
 			{
-				tmp_result = tmp_result + (rhs[tmp][j] * new_this[i][tmp]);
+				// Calculate the dot product between rows of the current matrix and columns of the right-hand side matrix
+				tmp_result = tmp_result + ((*this)[i][tmp] * rhs[tmp][j]);
 			}
+			// Store the computed value in the current vector
 			tmp_vec.push_back(tmp_result);
 		}
+		// Store the row in the result matrix
 		result.push_back(tmp_vec);
 	}
 	return result;
 }
+
 
 // Combine two matrices horizontally
 template <class T>
@@ -113,42 +120,24 @@ Mat<T> Mat<T>:: operator,(const Mat<T>& rhs) const {
 
 }
 
-//transpose function, used chat gpt to write this
+
 // Transpose the matrix (rows become columns and vice versa)
 template <class T>
 Mat<T> Mat<T>::transpose() const
 {
-	
-	//Vec<Vec<T> > new_this = *this;
-	Vec<Vec<T> > result;
-	
-	for (unsigned int i = 0; i < width(); i++) {
+	Vec<Vec<T>> result;
+	for (unsigned int i = 0; i < this->width(); i++) {// Iterate over the width of the original matrix
 		Vec<T> row;
-		for (unsigned int j = 0; j < height(); j++) {
+		for (unsigned int j = 0; j < this->height(); j++) { // Iterate over the height of the original matrix
 			row.push_back((*this)[j][i]);
 		}
+		// Add the transposed row to the resulting matrix
 		result.push_back(row);
 	}
+	// Return the transposed matrix
 	return result;
 }
 
-//// Transpose the matrix (rows become columns and vice versa)
-//template <class T>
-//Mat<T> Mat<T>::transpose() const {
-//	unsigned int height = this->height();
-//	unsigned int width = this->width();
-//	Vec<Vec<T>> transMat(width);
-//
-//	for (unsigned int i = 0; i < width; ++i) {
-//		Vec<T> row;
-//		for (unsigned int j = 0; j < height; ++j) {
-//			row.push_back((*this)[j][i]); // Swap rows and columns
-//		}
-//		transMat = (transMat + row);
-//	}
-//
-//	return Mat<T>(transMat);
-//}
 
 
 // Get specified rows
